@@ -27,6 +27,13 @@ function Write-Entry($entry, [string]$dst) {
     "  {0,12:N0}  {1}" -f $entry.Length, $dst
 }
 
+# Run without arguments on a machine that does not have the defaults: ask (drag and drop into the console works).
+if (-not (Test-Path $Apk)) {
+    $Apk = (Read-Host "Path of the game's APK file (Run Sackboy! Run! 1.0.4)").Trim('"', ' ')
+}
+if (-not (Test-Path ([IO.Path]::Combine($ObbDir, "main.25.com.playstation.runsackboyrun.obb")))) {
+    $ObbDir = (Read-Host "Folder holding main.25...obb and patch.42...obb").Trim('"', ' ')
+}
 if (-not (Test-Path $Apk)) { throw "APK not found: $Apk (pass -Apk <path to the game's APK>)" }
 "APK: $Apk"
 $zip = [IO.Compression.ZipFile]::OpenRead($Apk)

@@ -190,6 +190,24 @@ int run_game(const RunOptions& o) {
         return 1;
     }
 
+    // The game's own files are not shipped with the port: say so instead of failing somewhere in the loader.
+    std::string missing;
+    for (const std::string& f : {o.so_path, o.obb_dir + "\\main.25.com.playstation.runsackboyrun.obb",
+                                 o.obb_dir + "\\patch.42.com.playstation.runsackboyrun.obb"}) {
+        if (GetFileAttributesA(f.c_str()) == INVALID_FILE_ATTRIBUTES) missing += "\n" + f;
+    }
+    if (!missing.empty()) {
+        ZLOGE("game files missing (run importer_le_jeu.bat / tools\\import_game_data.ps1):%s", missing.c_str());
+        if (!o.headless) {
+            MessageBoxW(nullptr,
+                        L"Les fichiers du jeu sont absents.\n"
+                        L"Lance importer_le_jeu.bat et indique l'APK de Run Sackboy! Run! 1.0.4 et le dossier des OBB.\n\n"
+                        L"The game files are missing: run importer_le_jeu.bat with the game's APK and OBB files.",
+                        L"Run Sackboy! Run!", MB_OK | MB_ICONWARNING);
+        }
+        return 1;
+    }
+
     CreateDirectoryA(o.save_dir.c_str(), nullptr);
 
     // Full screen without an explicit --size: render at the monitor's resolution, so nothing is scaled.

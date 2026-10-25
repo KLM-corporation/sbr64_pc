@@ -18,6 +18,8 @@ Standalone native Windows (`x86_64`) port of **Run Sackboy! Run!** (v1.0.4, Sony
 
 ## Getting started
 
+**Just want to play?** Download `sbr64_pc-…-windows-x64.zip` from the [Releases](https://github.com/KLM-corporation/sbr64_pc/releases), unzip it, double-click `importer_le_jeu.bat` (it asks for the game's APK and OBB folder), then `run_game.bat`. No toolchain needed.
+
 The repository holds the port only. The game itself (ARM library, archives, fonts, music) comes from
 your own copy of **Run Sackboy! Run!** for Android, v1.0.4: see [`data/README.md`](data/README.md).
 
@@ -42,7 +44,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
 | `src\` | The port: `core\` (JIT, memory, sync, ELF loader), `android\` (Bionic/NDK/JNI emulation, EGL/GLES bridge, runner), `audio\`, `platform\` (window, input) |
 | `third_party\` | Dynarmic (with its externals), the Boost headers it uses, dlmalloc |
 | `tests\` | C++ unit tests and the Python E2E suite (`tests\e2e`) |
-| `tools\` | `import_game_data.ps1`, `bmp2png.py` (screenshots), `got_symbol.py` and `plt_calls.py` (reverse-engineering helpers for the game library) |
+| `tools\` | `import_game_data.ps1` (also launched by `importer_le_jeu.bat`), `bmp2png.py` (screenshots), `got_symbol.py` and `plt_calls.py` (reverse-engineering helpers for the game library) |
 | `data\` | Game files, imported (not versioned) |
 | `save\` | Player profile (not versioned) |
 | `sbr64_pc.exe`, `build\` | Build output (not versioned) |
