@@ -1,0 +1,19 @@
+# Build output
+/build/
+/sbr64_pc.exe
+
+# Game files: Sony's, imported from your own copy by tools/import_game_data.ps1 (see data/README.md)
+/data/*
+!/data/README.md
+
+# Player profiles
+/save/
+/save_backup/
+
+# Work area of the agents that started the port (sandboxes, test binaries, logs)
+/.agents/
+
+# Python
+__pycache__/
+*.pyc
+/tests/e2e/test_report.json
